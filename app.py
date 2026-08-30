@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-import hashlib
+from stressinjector.cpu import CPUStress
 
 app = Flask(__name__)
 
@@ -24,11 +24,7 @@ products = [
 
 @app.route("/showProduct", methods=["GET"])
 def show_product():
-    data = b"showProduct"
-
-    for _ in range(50000000):
-        data = hashlib.sha256(data).digest()
-
+    CPUStress(seconds=120).run()
     return jsonify(products)
 
 
