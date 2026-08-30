@@ -26,7 +26,7 @@ products = [
 def show_product():
     data = b"showProduct"
 
-    for _ in range(500000):
+    for _ in range(5000000):
         data = hashlib.sha256(data).digest()
 
     return jsonify(products)
