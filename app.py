@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import hashlib
 
 app = Flask(__name__)
 
@@ -17,14 +18,19 @@ products = [
         "id": 3,
         "name": "Cloud 3",
         "price": 199.99
-    },
-    
+    }
 ]
 
 
 @app.route("/showProduct", methods=["GET"])
 def show_product():
+    data = b"showProduct"
+
+    for _ in range(100000):
+        data = hashlib.sha256(data).digest()
+
     return jsonify(products)
+
 
 @app.route("/health")
 def health():
